@@ -1,0 +1,39 @@
+h2 {
+    font-family: "Arial", serif;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.article-content p {
+  text-align: justify;       /* Giúp chữ căn đều hai bên */
+  line-height: 1.6;          /* Giúp chữ thoáng và dễ đọc */
+  font-size: 1rem;           /* Có thể tăng nếu cần */
+}
+
+h3 {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+
+.ad-banner img {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.ad-banner img:hover {
+  transform: scale(1.02);
+}
+
+

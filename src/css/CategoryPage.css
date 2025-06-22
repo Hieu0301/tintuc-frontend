@@ -1,0 +1,8 @@
+.card.flex-row {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card.flex-row:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
