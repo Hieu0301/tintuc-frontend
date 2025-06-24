@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import "../css/stylesHomePage.css";
 
 export default function HomePage() {
+  const BASE_URL = "https://efficient-gentleness-production.up.railway.app";
+
   const [articles, setArticles] = useState([]);
   const [category, setCategory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,21 +16,21 @@ export default function HomePage() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/articles`)
+      .get(`${BASE_URL}/api/articles`)
       .then((res) => setArticles(res.data.data.data))
       .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/categories`)
+      .get(`${BASE_URL}/api/categories`)
       .then((res) => setCategory(res.data.data))
       .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/articles?page=${currentPage}`)
+      .get(`${BASE_URL}/api/articles?page=${currentPage}`)
       .then((res) => {
         setArticles(res.data.data.data);
         setLastPage(res.data.data.last_page);
@@ -38,12 +40,9 @@ export default function HomePage() {
 
   const handleSubscribe = async () => {
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/subscribe`,
-        {
-          email,
-        }
-      );
+      const res = await axios.post(`${BASE_URL}/api/subscribe`, {
+        email,
+      });
 
       setMessage(res.data.message);
       setEmail("");
@@ -92,7 +91,7 @@ export default function HomePage() {
               <div className="col-md-12 mb-3" key={article.id}>
                 <div className="card flex-row">
                   <img
-                    src={`${process.env.REACT_APP_API_URL}/storage/${article.thumbnail}`}
+                    src={`${BASE_URL}/storage/${article.thumbnail}`}
                     className="card-img-left"
                     alt={article.title}
                     style={{ width: "300px", objectFit: "cover" }}
@@ -140,7 +139,7 @@ export default function HomePage() {
               <li className="list-group-item" key={article.id}>
                 <div className="d-flex">
                   <img
-                    src={`${process.env.REACT_APP_API_URL}/storage/${article.thumbnail}`}
+                    src={`${BASE_URL}/storage/${article.thumbnail}`}
                     alt={article.title}
                     style={{
                       width: "60px",
