@@ -4,6 +4,7 @@ import axios from "axios";
 import "../css/ArticleDetail.css";
 
 export default function ArticleDetail() {
+  const BASE_URL = "https://efficient-gentleness-production.up.railway.app";
   const { id } = useParams();
   const [article, setArticle] = useState(null);
   const [articles, setArticles] = useState([]);
@@ -13,7 +14,7 @@ export default function ArticleDetail() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:8000/api/articles/${id}`)
+      .get(`${BASE_URL}/api/articles/${id}`)
       .then((res) => {
         setArticle(res.data.data);
         setLoading(false);
@@ -27,7 +28,7 @@ export default function ArticleDetail() {
   // Lấy danh sách bài viết khác
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/articles")
+      .get(`${BASE_URL}/api/articles`)
       .then((res) => setArticles(res.data.data.data))
       .catch((err) => console.error(err));
   }, []);
@@ -85,7 +86,7 @@ export default function ArticleDetail() {
           </p>
 
           <img
-            src={`http://localhost:8000/storage/${article.thumbnail}`}
+            src={`${BASE_URL}/storage/${article.thumbnail}`}
             className="img-fluid w-100 mb-3 rounded"
             alt={article.title}
           />
@@ -108,7 +109,7 @@ export default function ArticleDetail() {
               .map((item) => (
                 <li className="list-group-item d-flex" key={item.id}>
                   <img
-                    src={`http://localhost:8000/storage/${item.thumbnail}`}
+                    src={`${BASE_URL}/storage/${item.thumbnail}`}
                     alt={item.title}
                     style={{
                       width: "60px",

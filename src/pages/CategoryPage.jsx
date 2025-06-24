@@ -5,6 +5,7 @@ import "../css/CategoryPage.css";
 import imageCity from "../assets/city.jpg";
 import imageaTown from "../assets/town.jpg";
 export default function CategoryPage() {
+  const BASE_URL = "https://efficient-gentleness-production.up.railway.app";
   const { id } = useParams();
   const [articles, setArticles] = useState([]);
   const [categoryName, setCategoryName] = useState("");
@@ -16,7 +17,7 @@ export default function CategoryPage() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:8000/api/categories/${id}/articles`)
+      .get(`${BASE_URL}/api/categories/${id}/articles`)
       .then((res) => {
         setArticles(res.data.data);
         setCategoryName(res.data.category);
@@ -30,14 +31,14 @@ export default function CategoryPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/categories")
+      .get(`${BASE_URL}/api/categories`)
       .then((res) => setCategory(res.data.data))
       .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/articles")
+      .get(`${BASE_URL}/api/articles`)
       .then((res) => setArticle(res.data.data.data))
       .catch((err) => console.error(err));
   });
@@ -86,7 +87,7 @@ export default function CategoryPage() {
                 <div className="col-md-12 mb-3" key={article.id}>
                   <div className="card flex-row shadow-sm">
                     <img
-                      src={`http://localhost:8000/storage/${article.thumbnail}`}
+                      src={`${BASE_URL}/storage/${article.thumbnail}`}
                       className="card-img-left"
                       alt={article.title}
                       style={{
@@ -143,7 +144,7 @@ export default function CategoryPage() {
                 .map((item) => (
                   <li className="list-group-item d-flex" key={item.id}>
                     <img
-                      src={`http://localhost:8000/storage/${item.thumbnail}`}
+                      src={`${BASE_URL}/storage/${item.thumbnail}`}
                       alt={item.title}
                       style={{
                         width: "60px",

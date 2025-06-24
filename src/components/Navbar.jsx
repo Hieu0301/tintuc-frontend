@@ -3,11 +3,12 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import "../css/Navbar.css";
 export default function Navbar() {
+  const BASE_URL = "https://efficient-gentleness-production.up.railway.app";
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/categories")
+      .get(`${BASE_URL}/api/categories`)
       .then((res) => setCategory(res.data.data))
       .catch((err) => console.error(err));
   }, []);
