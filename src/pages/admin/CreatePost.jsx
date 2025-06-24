@@ -107,8 +107,27 @@ function CreatePost() {
     formData.append("content", editor.getHTML());
     formData.append("category_id", selectedCategoryId);
 
+    // axios
+    //   .post(`${BASE_URL}/api/articles`, formData)
+    //   .then(() => {
+    //     alert("Đã đăng bài thành công!");
+    //     setTitle("");
+    //     setThumbnail(null);
+    //     setSelectedCategoryId("");
+    //     editor.commands.setContent("<p>Nhập nội dung bài viết...</p>");
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     alert("Lỗi khi đăng bài");
+    //   });
+
     axios
-      .post(`${BASE_URL}/api/articles`, formData)
+      .post(`${BASE_URL}/api/articles`, formData, {
+        headers: {
+          Accept: "application/json",
+          // ❗ KHÔNG truyền Content-Type, để browser tự set với boundary
+        },
+      })
       .then(() => {
         alert("Đã đăng bài thành công!");
         setTitle("");
@@ -117,7 +136,7 @@ function CreatePost() {
         editor.commands.setContent("<p>Nhập nội dung bài viết...</p>");
       })
       .catch((err) => {
-        console.error(err);
+        console.error(err.response?.data || err.message);
         alert("Lỗi khi đăng bài");
       });
   };
