@@ -7,6 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../../css/EditPost.css";
 
 function EditPost() {
+  const BASE_URL = "https://efficient-gentleness-production.up.railway.app";
   const { id } = useParams(); // ID bài viết cần sửa
   const navigate = useNavigate();
 
@@ -38,7 +39,7 @@ function EditPost() {
   // Lấy danh mục
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/categories")
+      .get(`${BASE_URL}/api/categories`)
       .then((res) => setCategories(res.data.data))
       .catch((err) => console.error("Lỗi khi lấy danh mục:", err));
   }, []);
@@ -46,7 +47,7 @@ function EditPost() {
   // Lấy dữ liệu bài viết hiện tại
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/articles/${id}`)
+      .get(`${BASE_URL}/api/articles/${id}`)
       .then((res) => {
         const data = res.data.data;
         setTitle(data.title);
@@ -68,11 +69,9 @@ function EditPost() {
     formData.append("image", file);
 
     try {
-      const res = await axios.post(
-        "http://localhost:8000/api/upload-image",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      const res = await axios.post(`${BASE_URL}/api/upload-image`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       const imageUrl = res.data.url; //Lấy đường dẫn ảnh từ kết quả trả về.
       editor.chain().focus().setImage({ src: imageUrl }).run(); //ảnh được chèn ngay vị trí con trỏ trong editor.
     } catch (err) {
@@ -97,7 +96,7 @@ function EditPost() {
     formData.append("_method", "PUT"); // Laravel hỗ trợ PUT qua POST
 
     axios
-      .post(`http://localhost:8000/api/articles/${id}`, formData)
+      .post(`${BASE_URL}/api/articles/${id}`, formData)
       .then(() => {
         alert("Đã cập nhật bài viết thành công!");
         navigate("/"); // hoặc navigate về danh sách bài viết
@@ -154,7 +153,7 @@ function EditPost() {
           {oldThumbnail && !thumbnail && (
             <div className="mt-2">
               <img
-                src={`http://localhost:8000/storage/${oldThumbnail}`}
+                src={`${BASE_URL}/storage/${oldThumbnail}`}
                 alt="Ảnh cũ"
                 className="img-thumbnail"
                 style={{ width: 200 }}

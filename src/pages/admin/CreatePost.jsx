@@ -6,6 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "../../css/CreatePost.css";
 function CreatePost() {
+  const BASE_URL = "https://efficient-gentleness-production.up.railway.app";
   const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -40,7 +41,7 @@ function CreatePost() {
   // Lấy danh sách chuyên mục từ API
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/categories")
+      .get(`${BASE_URL}/api/categories`)
       .then((res) => setCategories(res.data.data))
       .catch((err) => console.error("Lỗi khi lấy danh mục:", err));
   }, []);
@@ -78,13 +79,9 @@ function CreatePost() {
     formData.append("image", file);
 
     try {
-      const res = await axios.post(
-        "http://localhost:8000/api/upload-image",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const res = await axios.post(`${BASE_URL}/api/upload-image`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       const imageUrl = res.data.url;
 
@@ -111,7 +108,7 @@ function CreatePost() {
     formData.append("category_id", selectedCategoryId);
 
     axios
-      .post("http://localhost:8000/api/articles", formData)
+      .post(`${BASE_URL}/api/articles`, formData)
       .then(() => {
         alert("Đã đăng bài thành công!");
         setTitle("");

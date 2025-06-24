@@ -3,11 +3,12 @@ import "../../css/PostCategory.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 function PostCategory() {
+  const BASE_URL = "https://efficient-gentleness-production.up.railway.app";
   const [category, setCategory] = useState([]);
 
   const handleSubmit = () => {
     axios
-      .post("http://localhost:8000/api/categories", {
+      .post(`${BASE_URL}/api/categories`, {
         name: category,
       })
       .then((res) => {

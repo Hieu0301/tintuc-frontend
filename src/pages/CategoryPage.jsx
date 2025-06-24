@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "../css/CategoryPage.css";
-import imageCity from "../assets/city.jpg";
-import imageaTown from "../assets/town.jpg";
 export default function CategoryPage() {
   const BASE_URL = "https://efficient-gentleness-production.up.railway.app";
   const { id } = useParams();

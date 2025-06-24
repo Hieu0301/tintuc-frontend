@@ -5,13 +5,14 @@ import DashboardLayout from "../../pages/admin/DashboardLayout";
 import axios from "axios";
 
 function PostList() {
+  const BASE_URL = "https://efficient-gentleness-production.up.railway.app";
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1); // tổng số trang
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/articles")
+      .get(`${BASE_URL}/api/articles`)
       .then((res) => setArticles(res.data.data.data))
       .catch((err) => console.error(err));
   }, []);
@@ -19,7 +20,7 @@ function PostList() {
   const handleDelete = (id) => {
     if (window.confirm("Bạn có chắc muốn xóa bài viết này không?")) {
       axios
-        .delete(`http://localhost:8000/api/articles/${id}`)
+        .delete(`${BASE_URL}/api/articles/${id}`)
         .then(() => setArticles(articles.filter((a) => a.id !== id)))
         .catch((err) => console.error(err));
     }
@@ -27,7 +28,7 @@ function PostList() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/articles?page=${currentPage}`)
+      .get(`${BASE_URL}/articles?page=${currentPage}`)
       .then((res) => {
         setArticles(res.data.data.data);
         setLastPage(res.data.data.last_page);
@@ -78,7 +79,7 @@ function PostList() {
               </Link>
               <td>
                 <img
-                  src={`http://localhost:8000/storage/${a.thumbnail}`}
+                  src={`${BASE_URL}/storage/${a.thumbnail}`}
                   alt={a.title}
                   style={{ width: "80px", height: "60px", objectFit: "cover" }}
                 />
