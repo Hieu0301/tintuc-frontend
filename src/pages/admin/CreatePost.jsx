@@ -124,8 +124,7 @@ function CreatePost() {
     axios
       .post(`${BASE_URL}/api/articles`, formData, {
         headers: {
-          Accept: "application/json",
-          // ❗ KHÔNG truyền Content-Type, để browser tự set với boundary
+          "Content-Type": "multipart/form-data",
         },
       })
       .then(() => {
